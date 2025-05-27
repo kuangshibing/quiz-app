@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>消防装备知识测试</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 20px; }
+    .container { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h1 { text-align: center; color: #333; }
+    .question { margin-bottom: 20px; }
+    .options label { display: block; margin: 5px 0; }
+    button { padding: 10px 20px; font-size: 16px; cursor: pointer; border: none; border-radius: 5px; background-color: #007BFF; color: white; }
+    button:hover { background-color: #0056b3; }
+    .result { font-weight: bold; font-size: 18px; text-align: center; margin-top: 20px; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>消防装备知识测试</h1>
+  <form id="quizForm">
+  </form>
+  <button onclick="submitQuiz()">提交答案</button>
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+  const questions = [
+    {
+      q: "抢险救援器材主要包括哪些类型？",
+      options: [
+        "A. 侦检、警戒、救生、破拆",
+        "B. 照明、排烟、输转、洗消",
+        "C. 侦检、警戒、救生、破拆、堵漏、输转、洗消、照明和排烟",
+        "D. 侦检、警戒、救生、破拆、堵漏、输转、洗消、照明、排烟、通信"
+      ],
+      answer: "C"
+    },
+    {
+      q: "可燃气体检测仪主要检测什么？",
+      options: ["A. 气体成分与浓度", "B. 生命体位置", "C. 火场温度", "D. 放射性射线强度"],
+      answer: "A"
+    },
+    {
+      q: "可燃气体检测仪按获得气体样品的方式可分为哪两种？",
+      options: ["A. 扩散式和泵吸式", "B. 单一式和复合式", "C. 催化燃烧式和红外吸收式", "D. 热传导式和半导体式"],
+      answer: "A"
+    },
+    {
+      q: "催化燃烧式可燃气体检测仪的工作原理是什么？",
+      options: ["A. 利用铂丝线圈检测气体浓度", "B. 利用红外吸收原理检测气体浓度", "C. 利用热传导原理检测气体浓度", "D. 利用半导体原理检测气体浓度"],
+      answer: "A"
+    },
+    {
+      q: "使用可燃气体检测仪时，需要注意什么？",
+      options: ["A. 检测需有适量氧气", "B. 避免接触催化剂中毒物质", "C. 定期校准", "D. 以上都是"],
+      answer: "D"
+    },
+    {
+      q: "红外热像仪的主要用途是什么？",
+      options: ["A. 检测气体浓度", "B. 搜索被困人员", "C. 检测火场温度", "D. 检测电气设备故障"],
+      answer: "B"
+    },
+    {
+      q: "红外热像仪的工作原理是什么？",
+      options: ["A. 通过红外线光学系统和探测器，将物体表面红外辐射转换成图像信号", "B. 通过声波及振动波的原理，探测被困者的位置", "C. 通过电磁波信号，探测被困者的生命活动", "D. 通过化学反应，检测气体浓度"],
+      answer: "A"
+    },
+    {
+      q: "使用红外热像仪时，需要注意什么？",
+      options: ["A. 轻拿轻放，防水防尘防高温", "B. 避免直接观测高温目标", "C. 定期维护，延长使用寿命", "D. 以上都是"],
+      answer: "D"
+    },
+    {
+      q: "漏电探测仪的主要用途是什么？",
+      options: ["A. 检测气体浓度", "B. 检测漏电位置", "C. 搜索被困人员", "D. 检测火场温度"],
+      answer: "B"
+    },
+    {
+      q: "漏电探测仪的工作原理是什么？",
+      options: ["A. 利用高灵敏度交流放大器，将漏电信号转换成声光报警信号", "B. 利用红外辐射，检测漏电位置", "C. 利用声波及振动波，检测漏电位置", "D. 利用化学反应，检测漏电位置"],
+      answer: "A"
+    },
+    {
+      q: "使用漏电探测仪时，需要注意什么？",
+      options: ["A. 操作人员需穿戴绝缘服装", "B. 严禁接触电源", "C. 避免使用充电电池", "D. 以上都是"],
+      answer: "D"
+    },
+    {
+      q: "有毒气体检测仪主要用于检测什么？",
+      options: ["A. 可燃气体浓度", "B. 有毒气体浓度", "C. 火场温度", "D. 放射性射线强度"],
+      answer: "B"
+    },
+    {
+      q: "有毒气体检测仪按传感器工作原理可分为哪几种？",
+      options: ["A. 电化学式、半导体式、离子化式", "B. 电化学式、半导体式、离子化式、比色管技术", "C. 电化学式、半导体式、离子化式、催化燃烧式", "D. 电化学式、半导体式、离子化式、红外吸收式"],
+      answer: "B"
+    },
+    {
+      q: "生命探测仪主要用于什么？",
+      options: ["A. 检测气体浓度", "B. 搜索被困人员", "C. 检测火场温度", "D. 检测电气设备故障"],
+      answer: "B"
+    },
+    {
+      q: "雷达生命探测仪的工作原理是什么？",
+      options: ["A. 通过电磁波信号，探测被困者的生命活动", "B. 通过声波及振动波，探测被困者的位置", "C. 通过红外辐射，探测被困者的位置", "D. 通过化学反应，检测被困者的位置"],
+      answer: "A"
+    }
+  ];
+
+  const form = document.getElementById("quizForm");
+  questions.forEach((q, i) => {
+    const div = document.createElement("div");
+    div.classList.add("question");
+    div.innerHTML = `<p>${i + 1}. ${q.q}</p>` +
+      q.options.map((opt, j) => `
+        <div class="options">
+          <label><input type="radio" name="q${i}" value="${opt[0]}"> ${opt}</label>
+        </div>`).join("");
+    form.appendChild(div);
+  });
+
+  function submitQuiz() {
+    let score = 0;
+    questions.forEach((q, i) => {
+      const userAnswer = form[`q${i}`].value;
+      if (userAnswer === q.answer) score++;
+    });
+    document.getElementById("result").innerText = `您答对了 ${score} / ${questions.length} 题。得分：${score * 100 / questions.length} 分`;
+  }
+</script>
+</body>
+</html>
